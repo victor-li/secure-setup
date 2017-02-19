@@ -1,0 +1,38 @@
+--- Config.pm	2015-08-12 02:41:38.000000000 +0000
++++ Config.pm	2017-02-19 00:00:00.000000000 +0100
+@@ -706,19 +706,23 @@
+             if ($hdrs != 0);
+         $cmd .= " --ca $self->{_tls_ca}";
+ 
+-        return (undef, 'Must specify "tls cert-file"')
+-            if (!defined($self->{_tls_cert}));
+-        $hdrs = checkHeader("-----BEGIN CERTIFICATE-----", $self->{_tls_cert});
+-        return (undef, "Specified cert-file \"$self->{_tls_cert}\" is not valid")
+-            if ($hdrs != 0);
+-        $cmd .= " --cert $self->{_tls_cert}";
++        if (!defined($self->{_tls_cert})) {
++            # return (undef, 'Must specify "tls cert-file"')
++        } else {
++            $hdrs = checkHeader("-----BEGIN CERTIFICATE-----", $self->{_tls_cert});
++            return (undef, "Specified cert-file \"$self->{_tls_cert}\" is not valid")
++                if ($hdrs != 0);
++            $cmd .= " --cert $self->{_tls_cert}";
++        }
+ 
+-        return (undef, 'Must specify "tls key-file"')
+-            if (!defined($self->{_tls_key}));
+-        $hdrs = checkHeader("-----BEGIN (?:RSA )?PRIVATE KEY-----", $self->{_tls_key});
+-        return (undef, "Specified key-file \"$self->{_tls_key}\" is not valid")
+-            if ($hdrs != 0);
+-        $cmd .= " --key $self->{_tls_key}";
++        if (!defined($self->{_tls_key})) {
++            # return (undef, 'Must specify "tls key-file"')
++        } else {
++            $hdrs = checkHeader("-----BEGIN (?:RSA )?PRIVATE KEY-----", $self->{_tls_key});
++            return (undef, "Specified key-file \"$self->{_tls_key}\" is not valid")
++                if ($hdrs != 0);
++            $cmd .= " --key $self->{_tls_key}";
++        }
+ 
+         if (defined($self->{_tls_crl})) {
+             $hdrs = checkHeader("-----BEGIN X509 CRL-----", $self->{_tls_crl});
