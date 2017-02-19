@@ -156,6 +156,8 @@ system {
         server 2.pool.ntp.org {
         }
     }
+    name-server 8.8.8.8
+    name-server 8.8.4.4
     package {
         auto-sync 1
         repository community {
