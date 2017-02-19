@@ -223,7 +223,7 @@ user@mac:~$ ssh vyos mkdir -p /config/auth/pia
 user@mac:~$ scp openvpn-strong-tcp/* vyos:/config/auth/pia
 
 # Copy the credentials to VyOS
-user@mac:~$ scp pia-secret.txt vyos0:/config/auth/pia
+user@mac:~$ scp pia-secret.txt vyos:/config/auth/pia
 
 # Copy the template configuration file to VyOS
 user@mac:~$ scp config.boot vyos:/config/config.boot
